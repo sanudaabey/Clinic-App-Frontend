@@ -48,3 +48,15 @@ router.get('/:id/pdf', async (req, res) => {
     const doc = new PDFDocument({ margin: 50 });
     doc.pipe(res); 
 
+    // Header
+    doc.fontSize(22).font('Helvetica-Bold').text('SLIIT CLINICCARE', { align: 'center', color: '#4F46E5' });
+    doc.fontSize(10).font('Helvetica').fillColor('#64748B').text('123 University Way, Malabe, Sri Lanka', { align: 'center' });
+    doc.moveDown();
+    
+    // Divider Line
+    doc.moveTo(50, doc.y).lineTo(550, doc.y).lineWidth(1).strokeColor('#E2E8F0').stroke();
+    doc.moveDown();
+
+    // Title
+    doc.fontSize(18).font('Helvetica-Bold').fillColor('#0F172A').text('OFFICIAL INVOICE', { align: 'center' });
+    doc.moveDown(2);
