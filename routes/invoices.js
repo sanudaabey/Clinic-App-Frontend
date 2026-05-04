@@ -33,3 +33,18 @@ router.get('/user/:userId', async (req, res) => {
     res.status(500).json({ message: "Server Error" }); 
   }
 });
+
+// --- NEW PDF GENERATION ROUTE ---
+router.get('/:id/pdf', async (req, res) => {
+  try {
+    const invoice = await Invoice.findById(req.params.id);
+    if (!invoice) return res.status(404).send('Invoice not found');
+
+    // Tell the browser to expect a PDF download
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=Invoice-${invoice._id}.pdf`);
+
+    // Create the PDF
+    const doc = new PDFDocument({ margin: 50 });
+    doc.pipe(res); 
+
