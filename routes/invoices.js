@@ -79,3 +79,15 @@ router.get('/:id/pdf', async (req, res) => {
     doc.moveTo(350, doc.y).lineTo(550, doc.y).lineWidth(1).strokeColor('#E2E8F0').stroke();
     doc.moveDown();
     doc.fontSize(16).font('Helvetica-Bold').fillColor('#0F172A').text(`Total Amount: $${Number(invoice.amount).toFixed(2)}`, { align: 'right' });
+
+    // Footer
+    doc.moveDown(4);
+    doc.fontSize(10).font('Helvetica-Oblique').fillColor('#94A3B8').text('Thank you for choosing SLIIT ClinicCare. Wishing you a fast recovery!', { align: 'center' });
+
+    doc.end(); // Finish generating the document
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error generating PDF');
+  }
+});
