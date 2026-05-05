@@ -60,3 +60,12 @@ router.get('/:id/pdf', async (req, res) => {
     // Title
     doc.fontSize(18).font('Helvetica-Bold').fillColor('#0F172A').text('OFFICIAL INVOICE', { align: 'center' });
     doc.moveDown(2);
+
+    // Invoice Details
+    doc.fontSize(12).font('Helvetica-Bold').text('Invoice Details:');
+    doc.font('Helvetica').fillColor('#334155')
+       .text(`Invoice Ref: ${invoice._id}`)
+       .text(`Date Issued: ${new Date().toLocaleDateString()}`)
+       .text(`Patient ID: ${invoice.userId}`)
+       .text(`Status: ${invoice.status.toUpperCase()}`);
+    doc.moveDown(2);
