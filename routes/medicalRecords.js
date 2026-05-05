@@ -14,3 +14,14 @@ router.post('/', async (req, res) => {
     const newRecord = new MedicalRecord(req.body);
     await newRecord.save();
 
+    // 🛑 ADDED: Create a global notification for the patient when a record is made
+    try {
+      const newNoti = new Notification({
+        userId: req.body.userId,
+        userRole: 'patient', 
+        title: req.body.status === 'Pending' ? 'Action Required: Pending Record' : 'New Health Record Ready',
+        message: req.body.status === 'Pending' 
+          ? `Dr. ${req.body.doctorName} has added a pending ${req.body.recordType} that requires your attention.`
+          : `Dr. ${req.body.doctorName} has added a new ${req.body.recordType} to your health history.`,
+        isRead: false
+      });
