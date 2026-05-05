@@ -25,3 +25,7 @@ router.post('/', async (req, res) => {
           : `Dr. ${req.body.doctorName} has added a new ${req.body.recordType} to your health history.`,
         isRead: false
       });
+      await newNoti.save();
+    } catch (notiError) {
+      console.log("Failed to send global notification on creation:", notiError);
+    }
