@@ -69,3 +69,13 @@ router.get('/:id/pdf', async (req, res) => {
        .text(`Patient ID: ${invoice.userId}`)
        .text(`Status: ${invoice.status.toUpperCase()}`);
     doc.moveDown(2);
+
+    // Service Description
+    doc.fontSize(14).font('Helvetica-Bold').fillColor('#0F172A').text('Service Description:');
+    doc.fontSize(12).font('Helvetica').fillColor('#334155').text(invoice.description);
+    doc.moveDown(3);
+    
+    // Total Amount
+    doc.moveTo(350, doc.y).lineTo(550, doc.y).lineWidth(1).strokeColor('#E2E8F0').stroke();
+    doc.moveDown();
+    doc.fontSize(16).font('Helvetica-Bold').fillColor('#0F172A').text(`Total Amount: $${Number(invoice.amount).toFixed(2)}`, { align: 'right' });
