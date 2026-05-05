@@ -91,3 +91,13 @@ router.get('/:id/pdf', async (req, res) => {
     res.status(500).send('Error generating PDF');
   }
 });
+
+// UPDATE
+router.put('/:id', async (req, res) => {
+  try {
+    const updatedInvoice = await Invoice.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(updatedInvoice);
+  } catch (error) { 
+    res.status(500).json({ message: "Error updating invoice" }); 
+  }
+});
