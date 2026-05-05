@@ -101,3 +101,15 @@ router.put('/:id', async (req, res) => {
     res.status(500).json({ message: "Error updating invoice" }); 
   }
 });
+
+// DELETE
+router.delete('/:id', async (req, res) => {
+  try {
+    await Invoice.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Invoice deleted" });
+  } catch (error) { 
+    res.status(500).json({ message: "Error deleting invoice" }); 
+  }
+});
+
+module.exports = router;
