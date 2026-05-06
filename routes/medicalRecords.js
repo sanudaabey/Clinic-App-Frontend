@@ -29,3 +29,11 @@ router.post('/', async (req, res) => {
     } catch (notiError) {
       console.log("Failed to send global notification on creation:", notiError);
     }
+
+    res.status(201).json(newRecord);
+  } catch (error) { 
+    console.error("MEDICAL RECORD SAVE ERROR:", error); 
+    res.status(500).json({ message: "Error adding record" }); 
+  }
+});
+
