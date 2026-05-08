@@ -85,3 +85,7 @@ router.put('/:id', async (req, res) => {
          console.log("Failed to send notification on update:", notiError);
       }
     }
+
+    res.status(200).json(updatedRecord);
+  } catch (error) { res.status(500).json({ message: "Error updating record" }); }
+});
