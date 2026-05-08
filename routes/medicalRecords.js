@@ -65,3 +65,23 @@ router.get('/doctor/:doctorId', async (req, res) => {
   }
 });
 
+// UPDATE
+router.put('/:id', async (req, res) => {
+  try {
+    const updatedRecord = await MedicalRecord.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    
+    // 🛑 ADDED: If a doctor completes a pending record, notify the patient globally!
+    if (req.body.status === 'Completed' && req.body.isRead === false) {
+      try {
+         const newNoti = new Notification({
+            userId: updatedRecord.userId,
+            userRole: 'patient',
+            title: 'Health Record Completed',
+            message: `Your ${updatedRecord.recordType} update from Dr. ${updatedRecord.doctorName} is now complete and ready to view.`,
+            isRead: false
+         });
+         await newNoti.save();
+      } catch (notiError) {
+         console.log("Failed to send notification on update:", notiError);
+      }
+    }
