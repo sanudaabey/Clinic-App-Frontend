@@ -89,3 +89,13 @@ router.put('/:id', async (req, res) => {
     res.status(200).json(updatedRecord);
   } catch (error) { res.status(500).json({ message: "Error updating record" }); }
 });
+
+// DELETE
+router.delete('/:id', async (req, res) => {
+  try {
+    await MedicalRecord.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Record deleted" });
+  } catch (error) { res.status(500).json({ message: "Error deleting record" }); }
+});
+
+module.exports = router;
