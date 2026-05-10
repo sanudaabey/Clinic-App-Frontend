@@ -28,3 +28,13 @@ router.get('/user/:userId', async (req, res) => {
   }
 });
 
+// PUT to mark a notification as read
+router.put('/read/:id', async (req, res) => {
+  try {
+    await Notification.findByIdAndUpdate(req.params.id, { isRead: true });
+    res.json({ message: "Notification marked as read" });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating notification", error });
+  }
+});
+
