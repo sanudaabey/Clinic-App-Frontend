@@ -18,3 +18,13 @@ router.get('/user/:userId', async (req, res) => {
     if (doctorProfile) {
       searchIds.push(doctorProfile._id.toString());
     }
+
+    // 4. Fetch notifications where the userId matches ANY of the IDs in our list
+    const notifications = await Notification.find({ userId: { $in: searchIds } })
+                                          .sort({ createdAt: -1 }); // Newest first
+    res.json(notifications);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching notifications", error });
+  }
+});
+
