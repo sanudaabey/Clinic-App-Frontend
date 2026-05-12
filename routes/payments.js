@@ -51,3 +51,10 @@ router.post('/create-checkout-session', async (req, res) => {
       success_url: `http://localhost:8081/invoices?success=true&invoiceId=${invoiceId}&amount=${amount}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `http://localhost:8081/invoices?canceled=true`,
     });
+
+    res.json({ url: session.url });
+  } catch (error) {
+    console.error("Stripe Checkout Error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
