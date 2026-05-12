@@ -42,3 +42,12 @@ router.post('/create-checkout-session', async (req, res) => {
               name: `Invoice Payment`,
               description: `Payment for Invoice ID: ${invoiceId.substring(0, 8)}`,
             },
+            unit_amount: Math.round(Number(amount) * 100), 
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `http://localhost:8081/invoices?success=true&invoiceId=${invoiceId}&amount=${amount}&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `http://localhost:8081/invoices?canceled=true`,
+    });
