@@ -33,3 +33,12 @@ router.post('/create-checkout-session', async (req, res) => {
     const { invoiceId, amount, userId } = req.body;
     
     const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: `Invoice Payment`,
+              description: `Payment for Invoice ID: ${invoiceId.substring(0, 8)}`,
+            },
