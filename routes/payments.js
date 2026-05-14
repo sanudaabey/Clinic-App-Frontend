@@ -67,3 +67,11 @@ router.post('/pay', async (req, res) => {
     const newPayment = new Payment({ invoiceId, userId, amount, method, date, stripePaymentId });
     await newPayment.save();
 
+    await Invoice.findByIdAndUpdate(invoiceId, { status: 'Paid' });
+
+    // --- NEW: NOTIFICATION TRIGGER FOR PAYMENT ---
+    const newNotification = new Notification({
+      userId: userId,
+      userRole: 'patient', // Assumes the payer is a patient
+      title: 'Payment Successful',
+      message: `Your payment of $${Number(amount).toFixed(2)} has been successfully processed. Thank you!`
