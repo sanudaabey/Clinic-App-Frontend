@@ -58,3 +58,12 @@ router.post('/create-checkout-session', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// 3. CREATE: Add a new payment, update Invoice, and SEND NOTIFICATION
+router.post('/pay', async (req, res) => {
+  try {
+    const { invoiceId, userId, amount, method, date, stripePaymentId } = req.body;
+    
+    const newPayment = new Payment({ invoiceId, userId, amount, method, date, stripePaymentId });
+    await newPayment.save();
+
