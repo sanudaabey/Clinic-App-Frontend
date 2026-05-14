@@ -75,3 +75,13 @@ router.post('/pay', async (req, res) => {
       userRole: 'patient', // Assumes the payer is a patient
       title: 'Payment Successful',
       message: `Your payment of $${Number(amount).toFixed(2)} has been successfully processed. Thank you!`
+    });
+    await newNotification.save();
+    // -------------------------------------------
+
+    res.status(201).json({ message: 'Payment successful!', payment: newPayment });
+  } catch (error) {
+    console.error("Payment error:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
