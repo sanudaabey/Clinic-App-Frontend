@@ -106,3 +106,12 @@ router.get('/user/:userId', async (req, res) => {
   }
 });
 
+// 6. UPDATE: Admin changes payment details
+router.put('/:id', async (req, res) => {
+  try {
+    const updatedPayment = await Payment.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json({ message: 'Payment updated', payment: updatedPayment });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
