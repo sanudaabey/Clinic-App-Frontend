@@ -26,3 +26,10 @@ router.post('/create-payment-intent', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// 2. STRIPE CHECKOUT SESSION (FOR WEB)
+router.post('/create-checkout-session', async (req, res) => {
+  try {
+    const { invoiceId, amount, userId } = req.body;
+    
+    const session = await stripe.checkout.sessions.create({
