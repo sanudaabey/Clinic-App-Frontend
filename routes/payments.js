@@ -95,3 +95,14 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
+// 5. READ: Get all payments for a specific user
+router.get('/user/:userId', async (req, res) => {
+  try {
+    const userPayments = await Payment.find({ userId: req.params.userId }).sort({ _id: -1 });
+    res.status(200).json(userPayments);
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
