@@ -135,3 +135,12 @@ router.delete('/:id', async (req, res) => {
       await Invoice.findByIdAndUpdate(paymentToVoid.invoiceId, { status: 'Pending' });
     }
 
+    // --- NEW: NOTIFICATION TRIGGER FOR REFUND ---
+    const newNotification = new Notification({
+      userId: paymentToVoid.userId,
+      userRole: 'patient',
+      title: 'Refund Processed',
+      message: `A refund of $${Number(paymentToVoid.amount).toFixed(2)} has been processed to your original payment method. Your invoice is now pending.`
+    });
+    await newNotification.save();
+    // ------------------------------------------
