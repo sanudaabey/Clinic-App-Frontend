@@ -115,3 +115,18 @@ router.put('/:id', async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
+// 7. DELETE: Admin voids payment, refunds Stripe, and SENDS NOTIFICATION
+router.delete('/:id', async (req, res) => {
+  try {
+    const paymentToVoid = await Payment.findById(req.params.id);
+    if (!paymentToVoid) return res.status(404).json({ message: "Payment not found" });
+
+    // Stripe Refund Logic
+    if (paymentToVoid.stripePaymentId) {
+      try {
+        await stripe.refunds.create({ payment_intent: paymentToVoid.stripePaymentId });
+      } catch (stripeError) {
+        console.error("Stripe refund failed:", stripeError.message);
+      }
+    }
