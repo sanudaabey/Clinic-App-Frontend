@@ -130,3 +130,8 @@ router.delete('/:id', async (req, res) => {
         console.error("Stripe refund failed:", stripeError.message);
       }
     }
+
+    if (paymentToVoid.invoiceId) {
+      await Invoice.findByIdAndUpdate(paymentToVoid.invoiceId, { status: 'Pending' });
+    }
+
