@@ -144,3 +144,13 @@ router.delete('/:id', async (req, res) => {
     });
     await newNotification.save();
     // ------------------------------------------
+
+    await Payment.findByIdAndDelete(req.params.id);
+    
+    res.status(200).json({ message: 'Payment record voided, refunded, and Invoice reset' });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+module.exports = router;
