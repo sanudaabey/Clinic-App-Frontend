@@ -23,3 +23,13 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
+// READ (Get by User)
+router.get('/user/:userId', async (req, res) => {
+  try {
+    const records = await Prescription.find({ userId: req.params.userId });
+    res.status(200).json(records);
+  } catch (error) { 
+    res.status(500).json({ message: "Error fetching records" }); 
+  }
+});
