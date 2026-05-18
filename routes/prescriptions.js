@@ -13,3 +13,13 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: "Error adding prescription" }); 
   }
 });
+
+// GET: ADMIN FETCH ALL
+router.get('/', async (req, res) => {
+  try {
+    const allRecords = await Prescription.find();
+    res.status(200).json(allRecords);
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
