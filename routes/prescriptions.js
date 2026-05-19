@@ -43,3 +43,13 @@ router.get('/doctor/:doctorId', async (req, res) => {
     res.status(500).json({ message: "Error fetching doctor records" }); 
   }
 });
+
+// UPDATE
+router.put('/:id', async (req, res) => {
+  try {
+    const updatedPrescription = await Prescription.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(updatedPrescription);
+  } catch (error) { 
+    res.status(500).json({ message: "Error updating prescription" }); 
+  }
+});
