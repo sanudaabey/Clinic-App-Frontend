@@ -33,3 +33,13 @@ router.get('/user/:userId', async (req, res) => {
     res.status(500).json({ message: "Error fetching records" }); 
   }
 });
+
+// READ (Get by Doctor)
+router.get('/doctor/:doctorId', async (req, res) => {
+  try {
+    const records = await Prescription.find({ doctorId: req.params.doctorId });
+    res.status(200).json(records);
+  } catch (error) { 
+    res.status(500).json({ message: "Error fetching doctor records" }); 
+  }
+});
