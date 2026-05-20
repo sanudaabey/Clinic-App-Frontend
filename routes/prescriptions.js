@@ -53,3 +53,15 @@ router.put('/:id', async (req, res) => {
     res.status(500).json({ message: "Error updating prescription" }); 
   }
 });
+
+// DELETE
+router.delete('/:id', async (req, res) => {
+  try {
+    await Prescription.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Prescription deleted" });
+  } catch (error) { 
+    res.status(500).json({ message: "Error deleting prescription" }); 
+  }
+});
+
+module.exports = router;
