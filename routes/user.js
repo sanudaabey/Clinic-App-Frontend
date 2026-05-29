@@ -70,3 +70,23 @@ router.get('/:id', auth, async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
+// ==========================================
+// ROUTE 2: PUT/POST - Update patient details
+// ==========================================
+router.post('/update/:id', auth, async (req, res) => { 
+  try {
+    // FIX 1: Remove 'email' and 'role' from here. The user shouldn't be able to change these 
+    // from a standard profile edit screen anyway!
+    // 🛑 ADDED: 'password' to the destructured body request
+    const { name, phone, address, profileImage, password } = req.body; 
+    
+    // 🛑 ADDED: We bundle the standard fields into an object first
+    const updateFields = { name, phone, address, profileImage };
+
+    // 🛑 ADDED: If a password was sent from the frontend, hash it and add it to our update object
+    if (password && password.trim() !== '') {
+      const salt = await bcrypt.genSalt(10);
+      updateFields.password = await bcrypt.hash(password, salt);
+    }
+
