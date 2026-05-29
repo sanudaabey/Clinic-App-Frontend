@@ -37,3 +37,19 @@ router.get('/all', auth, async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
+// ==========================================
+// NEW ROUTE: DELETE - Remove a user completely
+// ==========================================
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
