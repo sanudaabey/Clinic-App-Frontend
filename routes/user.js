@@ -53,3 +53,20 @@ router.delete('/:id', auth, async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
+// ==========================================
+// ROUTE 1: GET - Fetch current patient details
+// ==========================================
+router.get('/:id', auth, async (req, res) => {
+  try {
+    // Added .select('-password') here for extra security!
+    const user = await User.findById(req.params.id).select('-password');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
