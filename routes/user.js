@@ -90,3 +90,9 @@ router.post('/update/:id', auth, async (req, res) => {
       updateFields.password = await bcrypt.hash(password, salt);
     }
 
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      updateFields, // 🛑 CHANGED: We now pass the dynamic object here
+      // FIX 2: Replaced 'new: true' with 'returnDocument: 'after'' to fix the Mongoose warning
+      { returnDocument: 'after', runValidators: true } 
+    ).select('-password');
