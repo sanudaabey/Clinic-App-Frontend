@@ -96,3 +96,16 @@ router.post('/update/:id', auth, async (req, res) => {
       // FIX 2: Replaced 'new: true' with 'returnDocument: 'after'' to fix the Mongoose warning
       { returnDocument: 'after', runValidators: true } 
     ).select('-password');
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'Profile updated successfully!', user: updatedUser });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+module.exports = router;
