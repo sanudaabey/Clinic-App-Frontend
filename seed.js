@@ -16,3 +16,13 @@ const realisticDoctors = [
     fee: "Rs. 3500",
     imageUrl: "👨‍⚕️" // Using emojis temporarily for mobile UI avatars
   },
+  {
+    name: "Dr. Nethmi Fernando",
+    specialty: "Pediatrician",
+    hospital: "Hemas Hospital Wattala",
+    experience: "10 Years",
+    rating: 4.8,
+    patients: "4K+",
+    fee: "Rs. 2500",
+    imageUrl: "👩‍⚕️"
+  },
