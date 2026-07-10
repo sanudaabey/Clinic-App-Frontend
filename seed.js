@@ -80,3 +80,6 @@ const seedDatabase = async () => {
     process.exit(1);
   }
 };
+
+// Run the function
+seedDatabase();
