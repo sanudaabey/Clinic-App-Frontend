@@ -57,3 +57,26 @@ const realisticDoctors = [
     imageUrl: "👨‍⚕️"
   }
 ];
+
+const seedDatabase = async () => {
+  try {
+    // 1. Connect to MongoDB
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("Connected to MongoDB...");
+
+    // 2. Delete any existing doctors so we don't get duplicates
+    await Doctor.deleteMany();
+    console.log("Cleared old doctor data...");
+
+    // 3. Insert the new realistic doctors
+    await Doctor.insertMany(realisticDoctors);
+    console.log("✅ Successfully injected Sri Lankan doctors into the database!");
+
+    // 4. Disconnect
+    mongoose.connection.close();
+    process.exit();
+  } catch (error) {
+    console.error("❌ Error seeding database:", error);
+    process.exit(1);
+  }
+};
