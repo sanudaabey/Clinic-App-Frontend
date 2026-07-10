@@ -26,3 +26,34 @@ const realisticDoctors = [
     fee: "Rs. 2500",
     imageUrl: "👩‍⚕️"
   },
+  {
+    name: "Dr. Kamal Gunawardena",
+    specialty: "Neurologist",
+    hospital: "Lanka Hospitals",
+    experience: "20 Years",
+    rating: 4.7,
+    patients: "1.2K+",
+    fee: "Rs. 4000",
+    imageUrl: "👨‍⚕️"
+  },
+  {
+    name: "Dr. Shalini Silva",
+    specialty: "Dermatologist",
+    hospital: "Nawaloka Hospital",
+    experience: "8 Years",
+    rating: 4.9,
+    patients: "3K+",
+    fee: "Rs. 3000",
+    imageUrl: "👩‍⚕️"
+  },
+  {
+    name: "Dr. Roshan Rajapakse",
+    specialty: "Orthopedic Surgeon",
+    hospital: "Medihelp Hospital",
+    experience: "12 Years",
+    rating: 4.6,
+    patients: "1.8K+",
+    fee: "Rs. 3000",
+    imageUrl: "👨‍⚕️"
+  }
+];
